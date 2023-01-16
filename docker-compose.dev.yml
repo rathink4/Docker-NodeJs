@@ -10,4 +10,11 @@ services:
       - /app/node_modules
     environment:
       - NODE_ENV=development
+      - MONGO_USER=rathink4
+      - MONGO_PASSWORD=mongodb_pass3
     command: npm run dev
+  
+  mongodb: 
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=rathink4
+      - MONGO_INITDB_ROOT_PASSWORD=mongodb_pass3
