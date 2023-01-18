@@ -1,9 +1,11 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const blogPostRouter = require('./routers/blogPostRoutes')
 const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, MONGO_PORT } = require('./config/config')
 const app = express()
 app.use(express.json())
+
+const blogPostRouter = require('./routers/blogPostRoutes')
+const usersRouter = require('./routers/usersRoutes')
 
 const mongoURL = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`
 
@@ -33,6 +35,8 @@ app.get("/", (req, res) => {
 
 // If you try to hit localhost:8000/api/v1/posts, then it will use the routes in blogPostRouter
 app.use("/api/v1/posts", blogPostRouter)
+app.use("/api/v1/signUp", usersRouter)
+app.use("/api/v1/login", usersRouter)
 
 const port = process.env.PORT || 8000
 
