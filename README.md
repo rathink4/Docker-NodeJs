@@ -22,7 +22,7 @@ Run up the container and then do `sudo docker volume prune`. This will remove al
 # Why use sessions?
 
 Sessions basically allow to reduces the amount of times a user hits the server. You don't want to interact with the server again and again
-after ever user log in to use the features of the application (i.e.- checking the credentials, privileges, etc.)
+after every user log in to use the features of the application (i.e.- checking the credentials, privileges, etc.)
 
 # What does Redis do?
 
