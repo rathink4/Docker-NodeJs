@@ -1,4 +1,4 @@
-// Creating the CRUD logic for the application
+// Creating the CRUD logic for the blog
 const blogPost = require("../models/blogPostModel")
 
 // get all the blog posts available

@@ -19,6 +19,15 @@ To remove anonymous volumes that are pilling up
 
 Run up the container and then do `sudo docker volume prune`. This will remove all the volumes which are not currently in use
 
+# Why use sessions?
+
+Sessions basically allow to reduces the amount of times a user hits the server. You don't want to interact with the server again and again
+after ever user log in to use the features of the application (i.e.- checking the credentials, privileges, etc.)
+
+# What does Redis do?
+
+It just holds the sessions that each user create and it is an in-memory store. Basically a cache to hold the sessions of users using the application.
+
 # TO-DOs
 
 - Redis integration and Authentication (50% done)
