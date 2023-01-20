@@ -21,7 +21,7 @@ Run up the container and then do `sudo docker volume prune`. This will remove al
 
 # TO-DOs
 
-- Redis integration
+- Redis integration and Authentication (50% done)
 - Nginx for Load balancing to multiple containers
 - Docker Swarm
 

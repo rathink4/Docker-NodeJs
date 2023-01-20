@@ -1,7 +1,30 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, MONGO_PORT } = require('./config/config')
+const session = require('express-session')
+const redis = require('redis')
+const connectRedis = require('connect-redis')
+const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, MONGO_PORT, REDIS_URL, REDIS_PORT, SESSION_SECRET } = require('./config/config')
 const app = express()
+
+// Adding Redis to the app. Creating Redis Store and client
+let RedisStore = connectRedis(session)
+let redisClient = redis.createClient({
+    host: REDIS_URL,
+    port: REDIS_PORT,
+})
+
+app.use(session({
+    store: new RedisStore({client:redisClient}),
+    secret: SESSION_SECRET,
+    cookie:{
+        secure: false,
+        resave: false,
+        saveUnintialized: false,
+        httpOnly: true,
+        maxAge: 30000
+    }
+}))
+
 app.use(express.json())
 
 const blogPostRouter = require('./routers/blogPostRoutes')
@@ -35,8 +58,7 @@ app.get("/", (req, res) => {
 
 // If you try to hit localhost:8000/api/v1/posts, then it will use the routes in blogPostRouter
 app.use("/api/v1/posts", blogPostRouter)
-app.use("/api/v1/signUp", usersRouter)
-app.use("/api/v1/login", usersRouter)
+app.use("/api/v1/users", usersRouter)
 
 const port = process.env.PORT || 8000
 
