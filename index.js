@@ -14,14 +14,17 @@ let redisClient = redis.createClient({
     port: REDIS_PORT,
 })
 
+// Application middleware
+
+// Session configuration
 app.use(session({
     store: new RedisStore({client:redisClient}),
-    secret: SESSION_SECRET,
+    secret: SESSION_SECRET, // Sessions are usually generated using secret to access the session. This secret should be hashed as well.
     cookie:{
-        secure: false,
+        secure: false, // send the cookie back if the request is https. Kept it false cause we are developing on localhost
         resave: false,
-        saveUnintialized: false,
-        httpOnly: true,
+        saveUnintialized: false, // if you aren't going to write anything to the session then this makes sure you aren't caching it into redis
+        httpOnly: true, // prevents client side JS to read the cookie
         maxAge: 30000
     }
 }))
