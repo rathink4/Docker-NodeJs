@@ -31,6 +31,7 @@ It just holds the sessions that each user create and it is an in-memory store. B
 # TO-DOs
 
 - Redis integration and Authentication (50% done)
+- Fix issue of client is closed for Redis
 - Nginx for Load balancing to multiple containers
 - Docker Swarm
 

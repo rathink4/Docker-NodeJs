@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const blogPostSchema = new mongoose.Scheme({
+const blogPostSchema = new mongoose.Schema({
     title: {
         type: String,
         require: ["true", "Every blog post needs a title :) "],

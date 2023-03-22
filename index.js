@@ -12,11 +12,12 @@ let RedisStore = connectRedis(session)
 let redisClient = redis.createClient({
     host: REDIS_URL,
     port: REDIS_PORT,
+    legacyMode: true
 })
 
-// Application middleware
+// // Application middleware
 
-// Session configuration
+// // Session configuration
 app.use(session({
     store: new RedisStore({client:redisClient}),
     secret: SESSION_SECRET, // Sessions are usually generated using secret to access the session. This secret should be hashed as well.
