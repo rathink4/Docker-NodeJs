@@ -19,6 +19,12 @@ To remove anonymous volumes that are pilling up
 
 Run up the container and then do `sudo docker volume prune`. This will remove all the volumes which are not currently in use
 
+To check whether scalability exist
+
+`sudo docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --scale node-docker-app=2`
+
+This will run 2 instances of the app and you can verify that Nginx does load balancing accordingly. 
+
 # Why use sessions?
 
 Sessions basically allow to reduces the amount of times a user hits the server. You don't want to interact with the server again and again
@@ -30,6 +36,6 @@ It just holds the sessions that each user create and it is an in-memory store. B
 
 # TO-DOs
 
-- Nginx for Load balancing to multiple containers
 - Docker Swarm
+- Push to production
 

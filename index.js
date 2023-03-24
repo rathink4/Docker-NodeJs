@@ -1,3 +1,4 @@
+const cors = require('cors')
 const express = require('express')
 const mongoose = require('mongoose')
 const session = require('express-session')
@@ -19,6 +20,9 @@ let redisClient = redis.createClient({
 
 redisClient.connect().catch(console.error);
 
+// Trusting proxies send by Nginx
+app.enable("trust proxy")
+
 // // Application middleware
 
 // // Session configuration
@@ -34,6 +38,7 @@ app.use(session({
     }
 }))
 
+app.use(cors({}))
 app.use(express.json())
 
 const blogPostRouter = require('./routers/blogPostRoutes')
@@ -61,7 +66,7 @@ const connectRetry = () => {
 connectRetry()
 
 
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
     res.send("<h1>Let's get started!!</h1>")
 })
 
