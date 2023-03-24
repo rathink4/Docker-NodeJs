@@ -1,9 +1,14 @@
 version: "3"
 services:
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "8000:80"
+      
   node-docker-app:
     build: .
-    ports:
-      - "8000:8000"
+    # ports:
+    #   - "8000:8000"
     volumes:
       - ./:/app:ro
       - /app/node_modules
