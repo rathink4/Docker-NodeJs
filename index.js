@@ -10,10 +10,14 @@ const app = express()
 // Creating Redis Store for storing sessions and configuring redis by creating redis client
 let RedisStore = connectRedis(session)
 let redisClient = redis.createClient({
-    host: REDIS_URL,
-    port: REDIS_PORT,
+    socket: {
+        host: REDIS_URL,
+        port: REDIS_PORT,
+    },
     legacyMode: true
 })
+
+redisClient.connect().catch(console.error);
 
 // // Application middleware
 
