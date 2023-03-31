@@ -16,6 +16,8 @@ RUN if [ "$NODE_ENV" = "development" ]; \
         else npm install --only=production; \
         fi
 
+RUN chown -R node /app/node_modules
+
 # copy everything again in the directory to /app directory
 COPY . .
 
