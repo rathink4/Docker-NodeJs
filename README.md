@@ -30,19 +30,19 @@ This will run 2 instances of the app and you can verify that Nginx does load bal
 First push all the code on the GitHub and the pull any changes to your Ubuntu production server/instance
 
 - To build the docker image
-`sudo docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build`
+`sudo -E docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build`
 
 - To pull down the image
-`sudo docker-compose -f docker-compose.yml -f docker-compose.prod.yml down`
+`sudo -E docker-compose -f docker-compose.yml -f docker-compose.prod.yml down`
 
 - To recreate only certain containers in docker file
-`sudo docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build container_name`
+`sudo -E docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build container_name`
 
 - Sometimes the container may have dependencies and will recreate the dependencies when building again, to avoid that
-`sudo docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build --no-deps container_name`
+`sudo -E docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build --no-deps container_name`
 
 - If you want to just rebuild certain image even though there are no changes
-`sudo docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --force-recreate --no-deps container_name`
+`sudo -E docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --force-recreate --no-deps container_name`
 
 The issue with these commands is that you should never be building your docker image in the production server.
 
@@ -55,6 +55,19 @@ Solution?
 2. Push the build image on `dockerhub`
 3. Production server will pull the image, do docker-compose up on that image, rebuild the container.
 
+# Docker Swarm
+
+Docker Swarm has Manager nodes and Worker nodes. The manager nodes make tasks for the worker nodes and those nodes do the tasks (creating service, deleting service, etc)
+
+Creating docker swarm
+`sudo -E docker swarm init --advertise-addr your-prod-instance-ip`
+
+Running docker swarm
+`sudo -E docker stack deploy -c docker-compose.yml -c docker-compose.prod.yml app-name`
+
+Docker ps for Docker Swarm
+`sudo -E docker stack services app-name`
+
 # Why use sessions?
 
 Sessions basically allow to reduces the amount of times a user hits the server. You don't want to interact with the server again and again
@@ -63,9 +76,4 @@ after every user log in to use the features of the application (i.e.- checking t
 # What does Redis do?
 
 It just holds the sessions that each user create and it is an in-memory store. Basically a cache to hold the sessions of users using the application.
-
-# TO-DOs
-
-- Docker Swarm
-- Push to production
 

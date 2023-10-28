@@ -67,7 +67,7 @@ connectRetry()
 
 
 app.get("/api", (req, res) => {
-    res.send("<h1>Let's get started change</h1>")
+    res.send("<h1>Let's get started changesssss</h1>")
 })
 
 // If you try to hit localhost:8000/api/v1/posts, then it will use the routes in blogPostRouter
