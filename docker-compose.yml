@@ -14,10 +14,10 @@ services:
     volumes:
       - ./:/app
       - /app/node_modules
-    # environment:
-    #   - PORT=8000
-    env_file:
-      - ./.env
+    environment:
+      - PORT=8000
+    # env_file:
+    #   - .env
     # to run mongodb container first, use depends_on
     depends_on:
       - mongodb
